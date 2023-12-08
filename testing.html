@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Users</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- Add missing attributes to input, button, tr, and td elements -->
+    First name: <input type="text" v-on:reset="resetFields" v-model.trim="firstName">
+    Last name: <input type="text" v-on:reset="resetFields" v-model.trim="lastName">
+    <button type="submit">Add user</button>
+
+    <table>
+      <caption>Users</caption>
+      <thead>
+        <tr>
+          <th>Index</th>
+          <th>First name</th>
+          <th>Last name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td v-bind="{{ Index }}"></td>
+          <td v-bind="{{ firstName }}" ></td>
+          <td v-bind ="{{ lastName }}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        index: 1,
+        firstName: '',
+        lastName: '',
+      },
+      computed: {
+        fullName: {
+          get: function() {
+            if (this.firstName && this.lastName) {
+                return this.firstName + ' ' + this.lastName;
+            } else {
+            return this.firstName || this.lastName;
+          }
+        },
+          set: function(newFullName) {
+                const names = newFullName.split(' ');
+            }
+          }
+        }
+      });
+
+    // Example case
+    if(vm.users) {
+      vm.users.push({firstName: "John", lastName: "Doe" }); 
+    }
+
+    document.getElementsByTagName("input")[0].value = "Ann";
+    document.getElementsByTagName("input")[0].dispatchEvent(new Event('input'));
+    document.getElementsByTagName("input")[1].value = "Franklin";
+    document.getElementsByTagName("input")[1].dispatchEvent(new Event('input'));
+    document.getElementsByTagName("button")[0].click();
+    
+    setTimeout(() => console.log(document.querySelector("tbody").innerHTML));
+  </script>
+</body>
+</html>
